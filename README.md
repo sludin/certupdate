@@ -176,7 +176,9 @@ ListenStream=/var/chroot/var/run/docker.sock
 
 Next you need to edit any services starting docker container with the `DOCKER_HOST` environment variable by putting the following in the `[Service]` section:
 
+```
 Environment=DOCKER_HOST=unix:///var/chroot/var/run/docker.sock
+```
 
 ### Changing any docker-compose files
 
