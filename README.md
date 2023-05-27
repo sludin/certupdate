@@ -66,16 +66,49 @@ cp /var/chroot
 perl chrootcp.pl /bin/bash
 perl chrootcp.pl /bin/cp
 perl chrootcp.pl /bin/ls
+perl chrootcp.pl /bin/rm
 ```
 
 ### Create /etc files
 
 ```
 mkdir /var/chroot/etc
-cp /etc/{passwd,group} /var/chroot/etc
+cp /etc/{passwd,group,nsswitch.conf} /var/chroot/etc
 ```
 
 Question: what users ? groups are needed in the chroot jail?
+
+### Compying NSS Libraries
+
+`ldd` only shows what the binary is linked with, but wha tmight be dynamically loaded.  
+NSS will dynamically load a shared library based on the contents of `nsswitch.conf` when 
+a name lookup is performed, for example, when you scp a file from your client to the
+scp jail. The simplest way to deal with this is:
+
+```
+cp /lib/x86_64-linux-gnu/libnss*.so.* /var/chroot/lib/x86_64-linux-gnu/
+```
+
+The precise location will vary per system.  The above works for ubuntu 20.  Running `sctrace`
+on the host system for the chroot jail can get you the needed details:
+
+```
+root:/var/chroot# strace scp 2>&1 | grep 'nss.*so'
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libnss_compat.so.2", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libnss_nis.so.2", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libnss_files.so.2", O_RDONLY|O_CLOEXEC) = 3
+```
+
+Copying these three shared libraries (in this example) makes things work smoothly.
+
+For reference, the error received when `scp` fails (due to the name lookup failing 
+because of the missing libraries) is the barely helpful:
+
+```
+unknown user 1003
+lost connection
+```
+The userid will vary based on your `/etc/passwd`
 
 ### Modify sshd_config
 
