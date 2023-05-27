@@ -141,10 +141,6 @@ mkdir /var/chroot/home/certupdate/.ssh
 # Create / add public key to ~/.ssh/authorized_keys
 ```
 
-### Optional: set user shell to bash:
-
-Edit `/var/chroot/etc/passwd`
-
 ## Special instructions for docker
 
 If the user need to exec / restart docker containers we need to make the docker environment available to the chroot jail.  This will be done by:
@@ -183,6 +179,12 @@ Next you need to edit any services starting docker container with the `DOCKER_HO
 Environment=DOCKER_HOST=unix:///var/chroot/var/run/docker.sock
 ```
 
+In addition you need to create the `/var/chroot/var/run` directory:
+
+```
+mkdir -p /var/chroot/var/run
+```
+
 ### Changing any docker-compose files
 
 Lastly, there may be docker command or docker compose files that need access to the new location of the socket. A volume command like:
@@ -204,6 +206,17 @@ Would be need to changed to:
 ```
 systemctl daemon-reload
 service docker restart
+```
+### Add the certupdate user to the docker groupd
+
+```
+usermod -a -G  docker certupdate
+```
+
+### Test that docker is not set up correctly
+
+```
+ssh certupdate@HOSTNAME docker ps
 ```
 
 ## Final file tree for reference
