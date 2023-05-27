@@ -110,6 +110,9 @@ lost connection
 ```
 The userid will vary based on your `/etc/passwd`
 
+Alternatively, you can look at using `sftp` which works in a differnet manner.  But I am 
+stubborn.
+
 ### Modify sshd_config
 
 Add the following to /etc/ssh/sshd_config
