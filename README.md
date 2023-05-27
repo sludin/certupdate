@@ -125,7 +125,7 @@ Add the following to /etc/ssh/sshd_config
 
 ```
 Match User certupdate
-ChrootDirectory /home/certupdate
+ChrootDirectory /var/chroot/home/certupdate
 ```
 
 Restart sshd:
