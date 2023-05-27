@@ -34,6 +34,15 @@ mknod -m 666 zero c 1 5
 mknod -m 666 random c 1 8
 ```
 
+### /proc/cpuinfo
+
+Some binaries on some systems need access to /proc/cpuinfo.  Mount this with:
+
+```
+mkdir /var/chroot/proc
+mount -o bind /proc /var/chroot/proc
+```
+
 ### Copy the binaries 
 
 You need to copy whatever binaries you want the chroot user to have access to the chroot environment as well as the dependent shared libraries.
