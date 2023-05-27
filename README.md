@@ -198,3 +198,60 @@ systemctl daemon-reload
 service docker restart
 ```
 
+## Final file tree for reference
+
+```
+.
+├── bin
+│   ├── bash
+│   ├── cat
+│   ├── cp
+│   ├── ls
+│   └── rm
+├── dev
+│   ├── null
+│   ├── random
+│   ├── tty
+│   └── zero
+├── etc
+│   ├── certs
+│   │   ├── [This is where certs will go - nginx points here]
+│   ├── group
+│   ├── nsswitch.conf
+│   └── passwd
+├── home
+│   └── certupdate
+├── lib
+│   └── x86_64-linux-gnu
+│       ├── libacl.so.1
+│       ├── libattr.so.1
+│       ├── libc.so.6
+│       ├── libdl.so.2
+│       ├── liblzma.so.5
+│       ├── libnss_compat.so.2
+│       ├── libnss_files.so.2
+│       ├── libnss_nis.so.2
+│       ├── libpcre.so.3
+│       ├── libpthread.so.0
+│       ├── libselinux.so.1
+│       └── libtinfo.so.5
+├── lib64
+│   └── ld-linux-x86-64.so.2
+├── usr
+│   ├── bin
+│   │   ├── docker
+│   │   ├── scp
+│   │   ├── strace [extra libraries brought in by strace]
+│   │   └── whoami
+│   └── lib
+│       └── x86_64-linux-gnu
+│           ├── libunwind-ptrace.so.0
+│           ├── libunwind.so.8
+│           └── libunwind-x86_64.so.8
+└── var
+    ├── letsencrypt 
+        ├── [location for http-01 challenge files]
+    └── run
+        └── docker.sock
+```
+
