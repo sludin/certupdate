@@ -83,7 +83,7 @@ Question: what users ? groups are needed in the chroot jail?
 `ldd` only shows what the binary is linked with, but wha tmight be dynamically loaded.  
 NSS will dynamically load a shared library based on the contents of `nsswitch.conf` when 
 a name lookup is performed, for example, when you scp a file from your client to the
-scp jail. The simplest way to deal with this is:
+chroot jail. The simplest way to deal with this is:
 
 ```
 cp /lib/x86_64-linux-gnu/libnss*.so.* /var/chroot/lib/x86_64-linux-gnu/
@@ -108,10 +108,13 @@ because of the missing libraries) is the barely helpful:
 unknown user 1003
 lost connection
 ```
+
 The userid will vary based on your `/etc/passwd`
 
 Alternatively, you can look at using `sftp` which works in a differnet manner.  But I am 
 stubborn.
+
+Useful documentation on NSS [here](https://www.gnu.org/software/libc/manual/html_node/Services-in-the-NSS-configuration.html).
 
 ### Modify sshd_config
 
