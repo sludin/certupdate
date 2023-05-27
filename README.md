@@ -80,7 +80,7 @@ Question: what users ? groups are needed in the chroot jail?
 
 ### Compying NSS Libraries
 
-`ldd` only shows what the binary is linked with, but wha tmight be dynamically loaded.  
+`ldd` only shows what the binary is linked with, but wha tmight be dynamically loaded.
 NSS will dynamically load a shared library based on the contents of `nsswitch.conf` when 
 a name lookup is performed, for example, when you scp a file from your client to the
 chroot jail. The simplest way to deal with this is:
