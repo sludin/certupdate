@@ -12,7 +12,7 @@ beyond that.
 mkdir -p /var/chroot
 ```
 
-Make certain the directory is owned by `root`.  
+Make certain the directory and all othe relements of the path are owned by `root`.  
 
 ### Create a user that will have the limited rights in the chroot
 
