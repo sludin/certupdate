@@ -12,12 +12,13 @@ beyond that.
 mkdir -p /var/chroot
 ```
 
-Make certain the directory and all othe relements of the path are owned by `root`.  
+Make certain the directory and all other elements of the path are owned by `root`.  
 
 ### Create a user that will have the limited rights in the chroot
 
 ```
-useradd -M -R /var/chroot/home/certupdate certupdate
+mkdir -p /var/chroot/home/certupdate
+useradd -M -d /var/chroot/home/certupdate certupdate
 ```
 
 ### Create the devices
@@ -26,6 +27,7 @@ These devices are needed by the login shell
 
 ```
 mkdir /var/chroot/dev
+cd /var/chroot/dev
 mknod -m 666 null c 1 3
 mknod -m 666 tty c 5 0
 mknod -m 666 zero c 1 5
@@ -63,10 +65,11 @@ Alternatively, use the tool in this repository, `chrootcp.pl` to copy the binari
 
 ```
 cp /var/chroot
-perl chrootcp.pl /bin/bash
-perl chrootcp.pl /bin/cp
-perl chrootcp.pl /bin/ls
+perl chrootcp.pl /bin/bash  # not used
+perl chrootcp.pl /bin/cp    # not used
+perl chrootcp.pl /bin/ls    # not used
 perl chrootcp.pl /bin/rm
+perl chrootcp.pl /usr/bin/scp
 ```
 
 ### Create /etc files
