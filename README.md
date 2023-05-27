@@ -141,6 +141,12 @@ mkdir /var/chroot/home/certupdate/.ssh
 # Create / add public key to ~/.ssh/authorized_keys
 ```
 
+### Set the permissions of home directory
+
+```
+sudo chown -R certupdate:certupdate /var/chroot/home/certupdate
+```
+
 ## Special instructions for docker
 
 If the user need to exec / restart docker containers we need to make the docker environment available to the chroot jail.  This will be done by:
